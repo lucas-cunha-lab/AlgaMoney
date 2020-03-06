@@ -1,11 +1,20 @@
 package com.exemple.algamoneyapi.resource;
 
+import java.net.URI;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.exemple.algamoneyapi.model.Categoria;
 import com.exemple.algamoneyapi.repository.CategoriaRepository;
@@ -19,12 +28,27 @@ public class CategoriaResource {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
+	
+	//findAll dá um SELECT * FROM categoria 
+	//o método findAll é um select que busca de forma direta
 	@GetMapping
-	public List<Categoria> listar(){
-		//findAll dá um SELECT * FROM categoria 
-		//o método findAll é um select que busca de forma direta
-		return categoriaRepository.findAll();
+	public ResponseEntity<?> listar(){		
+		
+		List<Categoria> categorias =  categoriaRepository.findAll();
+		return !categorias.isEmpty() ? ResponseEntity.ok(categorias) : ResponseEntity.noContent().build();
+		
 	}
+	
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public void criar(@RequestBody Categoria categoria, HttpServletResponse response) {
+		Categoria categoriaSalva = categoriaRepository.save(categoria);
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
+		.buildAndExpand(categoriaSalva.getCodigo()).toUri();
+		response.setHeader("Location", uri.toASCIIString());
+	}
+	
 	
 	/*
 	 * Eu não posso usar dois GetMapping dentro da mesma classe porque o get
