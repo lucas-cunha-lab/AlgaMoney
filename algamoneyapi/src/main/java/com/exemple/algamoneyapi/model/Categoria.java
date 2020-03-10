@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "categoria")
@@ -13,6 +15,15 @@ public class Categoria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long codigo;
+	
+	@NotNull	
+	@Size(min = 3, max = 20)
+	/*
+	 * Tanto o NotNull como o size existe um código dentro da classe que permite que
+	 * você faça a validação e tratativas de erro através deste código, você entra
+	 * na classe pega o código então vai no arquivo ValidationMessages coloca o
+	 * código e depois atribui a mensagem que deseja inserir
+	 */
 	private String nome;
 
 	public long getCodigo() {
@@ -30,6 +41,8 @@ public class Categoria {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {
