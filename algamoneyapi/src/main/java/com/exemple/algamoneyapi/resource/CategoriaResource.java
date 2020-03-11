@@ -55,11 +55,7 @@ public class CategoriaResource {
 	  @GetMapping("/{codigo}") 
 	  public Optional<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {
 	  return categoriaRepository.findById(codigo);
-	  }
-	 
-	
-	
-	
+	  }	
 	
 	
 	/*
