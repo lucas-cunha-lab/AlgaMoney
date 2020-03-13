@@ -1,0 +1,14 @@
+mvn flyway:migrate -Dflyway.url=jdbc:MySQL://localhost:3306/algamoney -Dflyway.user=root -Dflyway.password=root
+
+
+mvn flyway:migrate -Durl.db=jdbc:MySQL://localhost:3306/algamoney?useTimezone=true&serverTimezone=America/Sao_Paulo -Duser.db=root -Dpassword.db=root
+
+
+<version>6.3.0</version>
+
+-------------------------------------------------------------------------------------------------------
+mvn flyway:migrate -Dflyway.url=jdbc:MySQL://localhost:3306/algamoney?serverTimezone=TimeZone&useLegacyDatetimeCode=false -Dflyway.user=root -Dflyway.password=root
+
+
+
+CREATE USER 'lucas'@'localhost' IDENTIFIED BY 'password';
