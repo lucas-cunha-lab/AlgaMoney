@@ -9,6 +9,8 @@ cidade VARCHAR(50),
 estado  VARCHAR(2)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+select * from pessoa;
+
 INSERT INTO  algamoney.pessoa (nome) values ('Rodolfo');
 INSERT INTO  algamoney.pessoa (logradouro) values ('Rua XV');
 INSERT INTO  algamoney.pessoa (numero) values ('1355');
